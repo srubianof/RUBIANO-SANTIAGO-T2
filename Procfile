@@ -1,2 +1,2 @@
 
-web: java $JAVA_OPTS -cp target/classes:target/dependency/* edu.eci.arsw.weather.WeatherApplication
+web: java $JAVA_OPTS -cp target/classes:target/dependency/* edu.eci.arsw.weather.WeatherApplication.main
