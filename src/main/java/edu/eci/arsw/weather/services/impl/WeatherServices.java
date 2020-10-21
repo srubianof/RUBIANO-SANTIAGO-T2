@@ -1,12 +1,11 @@
 package edu.eci.arsw.weather.services.impl;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.google.gson.Gson;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import edu.eci.arsw.weather.cache.CacheServiceI;
 import edu.eci.arsw.weather.model.*;
 import edu.eci.arsw.weather.services.HttpConnectionServicesI;
 import edu.eci.arsw.weather.services.WeatherServicesI;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,11 +20,16 @@ public class WeatherServices implements WeatherServicesI {
      */
     @Autowired
     HttpConnectionServicesI httpConnectionService;
-
+    @Autowired
+    CacheServiceI cacheService;
 
     @Override
     public City getStatsByCity(String city) throws UnirestException {
-        return addDetails(city);
+        if (cacheService.getCache(city) == null || System.currentTimeMillis() - cacheService.getTime(city) >= 300000) {
+            City cityNoCache = addDetails(city);
+            cacheService.saveCache(city, cityNoCache);
+        }
+        return cacheService.getCache(city).getO1();
     }
 
     private City addDetails(String city) throws UnirestException {

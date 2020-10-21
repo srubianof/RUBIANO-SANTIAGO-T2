@@ -6,7 +6,5 @@ apiclient = (function () {
                 callback(data);
             }, null)
         },
-
     }
-
 })();
