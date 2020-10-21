@@ -11,8 +11,14 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * The type Weather services.
+ */
 @Service
 public class WeatherServices implements WeatherServicesI {
+    /**
+     * The Http connection service.
+     */
     @Autowired
     HttpConnectionServicesI httpConnectionService;
 
@@ -23,10 +29,9 @@ public class WeatherServices implements WeatherServicesI {
     }
 
     private City addDetails(String city) throws UnirestException {
-        City city1 = new City();
         JSONObject jsonObject = httpConnectionService.getStatsCity(city);
-
         Gson gson = new Gson();
+        City city1 = new City();
         city1.setName(gson.fromJson(String.valueOf(jsonObject.get("name")), String.class));
         city1.setCoord(gson.fromJson(String.valueOf(jsonObject.getJSONObject("coord")), Location.class));
         city1.setWeather(gson.fromJson(String.valueOf(jsonObject.getJSONArray("weather").getJSONObject(0)), Weather.class));

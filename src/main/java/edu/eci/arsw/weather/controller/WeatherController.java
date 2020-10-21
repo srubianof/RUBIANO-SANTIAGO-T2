@@ -13,13 +13,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * The type Weather controller.
+ */
 @RestController
 @RequestMapping("v1")
 public class WeatherController {
 
+    /**
+     * The Weather services.
+     */
     @Autowired
     WeatherServicesI weatherServices;
 
+    /**
+     * Gets all cases.
+     *
+     * @param place the place
+     * @return the all cases
+     */
     @GetMapping()
     public ResponseEntity<?> getAllCases(@RequestParam String place) {
         City city = null;
