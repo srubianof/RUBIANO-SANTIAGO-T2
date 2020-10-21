@@ -1,2 +1,2 @@
 Github: https://github.com/srubianof/RUBIANO-SANTIAGO-T2
-Heroku: https://hidden-coast-13323.herokuapp.com/index.html
+Heroku: https://hidden-coast-13323.herokuapp.com
